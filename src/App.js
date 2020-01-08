@@ -1,55 +1,51 @@
 import React from 'react';
-//import Button from './button.js';
 import './App.css';
 
 const lettersArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
 "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
-const word = ["F", "U", "C", "K"]
+const word = ["H", "E", "L", "L", "O"]
 
-const clickedKeys = []
 
-class Button extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      color: ""
-    }
+const Button = ({ touche, onClick, value }) => (
+
+  <div className="touche">
+    <button onClick={() => onClick(touche)}>
+            {value}
+    </button>
+  </div>
+)
+
+class App extends React.Component {
+  constructor(props) {
+  super(props)
+  this.state = {
+    color: "",
+    clickedKeys: ["X"],
   }
+}
 
-  onClick() {
+
+    handleKeyClick = touche => {
+    const { clickedKeys, color } = this.state
     this.setState({color: 'color'});
-    if (!clickedKeys.includes(this.props.value)) {
-      clickedKeys.push(this.props.value);
+    if (!this.state.clickedKeys.includes(touche)) {
+      this.setState({ clickedKeys: [...clickedKeys, ...touche] })
     }
-    console.log(clickedKeys);
+    console.log(touche);
+    console.log(this.state.clickedKeys);
+    console.log(this.state.color)
   }
 
   render(){
     let btn_class = this.state.color ? 'color' : ''
 
-    return (
-      <div className="touche">
-        <button className={btn_class}
-                value=""
-                onClick={this.onClick.bind(this)}>
-                {this.props.value}
-        </button>
-      </div>
-    )
-  }
-}
-
-
-class App extends React.Component {
-
-  render(){
     return(
    <React.Fragment>
       <div className="wordBloc">
-       {word.map((letter) => (
-	        <div className={"wordLetter"} key={letter}>
-            __
+       {word.map((letter, index) => (
+	        <div className={"wordLetter"} key={index}>
+            {this.state.clickedKeys.includes(letter) ? letter : "_"}
           </div>
 	        ))}
       </div>
@@ -57,8 +53,11 @@ class App extends React.Component {
       <div className="keyboard">
         {lettersArr.map((touche, index) => (
             <Button
+              touche={touche}
               key={index}
-              value={touche}>
+              value={touche}
+              onClick={this.handleKeyClick}>
+              {touche}
             </ Button>
         ))}
       </div>
