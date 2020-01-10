@@ -26,7 +26,7 @@ Button {
   background-color: rgb(218,112,214);
 }
 
-.wordBloc {
+.wordBloc, p{
   display: flex;
   height: 150px;
   justify-content: center;
@@ -38,4 +38,14 @@ Button {
   height: 30px;
   width: 30px;
   justify-content: center;
+}
+
+.score {
+  text-align: center;
+  font-size: 1.1em;
+}
+
+#restartGame {
+  width: auto;
+  font-size: 1em;
 }
